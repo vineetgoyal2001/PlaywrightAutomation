@@ -37,7 +37,6 @@ console.log(await page.locator(".card-body a").nth(1).textContent());
 const allTitles = await cardTitles.allTextContents();
 console.log(allTitles);
 
-
 });
 
 test('Page context playwright test', async({page})=>
@@ -94,7 +93,7 @@ test('@Child windows hadl', async ({browser})=>
  
  });
 
- test.only('@Webst Client App login', async ({ page }) => {
+ test('@Webst Client App login', async ({ page }) => {
    //js file- Login js, DashboardPage
    const email = "anshika@gmail.com";
    const productName = 'ZARA COAT 3'; 
