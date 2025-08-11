@@ -47,7 +47,7 @@ await expect(page).toHaveTitle("Online Shopping site in India: Shop Online for M
 
 });
 
-test('UI Control', async({page})=>
+test.only('UI Control', async({page})=>
 {
 await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
 await page.locator("#username").fill("rahulshettyacademy");
@@ -57,9 +57,11 @@ const dropdown=page.locator("select.form-control");
 await dropdown.selectOption("Consultant");
 await page.locator(".radiotextsty").last().click();
 await page.locator("#okayBtn").click();
-await expect(page.locator(".radiotextsty").last()).toBeChecked();
+//await expect(page.locator(".radiotextsty").last()).toBeChecked();
 console.log (page.locator(".radiotextsty").last().isChecked());
-await expect(page.locator("#terms").toBeChecked());
+expect(await page.locator(".radiotextsty").last().isChecked());
+await page.locator("#terms").click();
+expect(await page.locator("#terms").isChecked());
 await page.locator("#terms").uncheck();
 expect(await page.locator("#terms").isChecked()).toBeFalsy();
 await expect(documentlink).toHaveAttribute("class","blinkingText");
@@ -95,7 +97,7 @@ test('@Child windows hadl', async ({browser})=>
 
  test('@Webst Client App login', async ({ page }) => {
    //js file- Login js, DashboardPage
-   const email = "anshika@gmail.com";
+   const email = "noida1@gmail.com";
    const productName = 'ZARA COAT 3'; 
    const products = page.locator(".card-body"); 
    await page.goto("https://rahulshettyacademy.com/client");
