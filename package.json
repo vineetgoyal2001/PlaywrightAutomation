@@ -10,5 +10,19 @@
   "devDependencies": {
     "@playwright/test": "^1.54.2",
     "@types/node": "^24.2.0"
-  }
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vineetgoyal2001/PlaywrightAutomation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vineetgoyal2001/PlaywrightAutomation/issues"
+  },
+  "homepage": "https://github.com/vineetgoyal2001/PlaywrightAutomation#readme"
 }
