@@ -1,21 +1,23 @@
 const { test, expect } = require('@playwright/test');
-const { LoginPage } = require('../pageobjects/LoginPage');
+const {customtest} = require('../utils/test-base');
+
 const { POManager } = require('../pageobjects/POManager');
+//Json->string->js object
+const dataset =  JSON.parse(JSON.stringify(require("../utils/placeorderTestData.json")));
 
 
-test('@Web Client App login', async ({ page }) => {
+for(let data of dataset){
+test('@Web Client App login for ${data.productName}', async ({ page }) => {
    //js file- Login js, DashboardPage
    const poManager = new POManager(page);
    //js file- Login js, DashboardPage
-   const username = "anshika@gmail.com";
-   const password = "Iamking@000"
-   const productName = 'Zara Coat 4';
+
    const products = page.locator(".card-body");
    const loginPage = poManager.getLoginPage();
    await loginPage.goTo();
-   await loginPage.validLogin(username, password);
+   await loginPage.validLogin(dataset.username, dataset.password);
    const dashboardPage = poManager.getDashboardPage();
-   await dashboardPage.searchProductAddCart(productName);
+   await dashboardPage.searchProductAddCart(dataset.productName);
    await dashboardPage.navigateToCart();
 
    const cartPage = poManager.getCartPage();
@@ -32,3 +34,23 @@ test('@Web Client App login', async ({ page }) => {
    expect(orderId.includes(await ordersHistoryPage.getOrderId())).toBeTruthy();
 
 });
+}
+
+customtest(`Client App login`, async ({page,testDataForOrder})=>
+ {
+   const poManager = new POManager(page);
+    //js file- Login js, DashboardPage
+     const products = page.locator(".card-body");
+     const loginPage = poManager.getLoginPage();
+     await loginPage.goTo();
+     await loginPage.validLogin(testDataForOrder.username,testDataForOrder.password);
+     const dashboardPage = poManager.getDashboardPage();
+     await dashboardPage.searchProductAddCart(testDataForOrder.productName);
+     await dashboardPage.navigateToCart();
+
+    const cartPage = poManager.getCartPage();
+    await cartPage.VerifyProductIsDisplayed(testDataForOrder.productName);
+    await cartPage.Checkout();
+
+
+})

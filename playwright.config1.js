@@ -1,30 +1,51 @@
 // @ts-check
-import { defineConfig, devices } from '@playwright/test';
+const { devices } = require('@playwright/test');
 
-
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
-const config= ({
+const config = {
   testDir: './tests',
-  timeout: 40*1000,
-  expect :{
-    timeout: 40*1000,
-  },
-  reporter : 'html',
- 
-  use: {
-    browserName : 'chromium',
-    headless : false,
-    screenshot : 'on',
-    trace : 'retain-on-failure',//off,on
-   
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+  retries :1,
+  workers: 3,
+  /* Maximum time one test can run for. */
+  //10-
+  timeout: 30 * 1000,
+  expect: {
   
+    timeout: 5000
   },
-
   
-});
+  reporter: 'html',
+  projects : [
+    {
+      name : 'safari',
+      use: {
 
-module.exports=config
+        browserName : 'webkit',
+        headless : true,
+        screenshot : 'off',
+        trace : 'on',//off,on 
+        ...devices['iPhone 11'],    
+      }
 
+    },
+    {
+      name : 'chrome',
+      use: {
+
+        browserName : 'chromium',
+        headless : false,
+        screenshot : 'on',
+        video: 'retain-on-failure',
+        ignoreHttpsErrors:true,
+        permissions:['geolocation'],
+        
+        trace : 'on',//off,on
+       // ...devices['']
+     //   viewport : {width:720,height:720}
+         }
+
+    }
+    ]
+
+};
+
+module.exports = config;

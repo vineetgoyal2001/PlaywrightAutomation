@@ -53,24 +53,6 @@ test('Upload download excel validation',async ({page})=>
   await expect(desiredRow.locator("#cell-4-undefined")).toContainText(updateValue);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 })
 
 

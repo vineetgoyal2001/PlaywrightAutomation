@@ -156,7 +156,7 @@ test('@Child windows hadl', async ({browser})=>
    }
    const orderIdDetails = await page.locator(".col-text").textContent();
    expect(orderId.includes(orderIdDetails)).toBeTruthy(); 
-   await page.pause();
+   await page.pause();   
  
 });
 
